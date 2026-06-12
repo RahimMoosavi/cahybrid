@@ -98,7 +98,7 @@ export default function About() {
                   variants={imageHover}
                   whileHover="hover"
                   className="h-56 sm:h-64 w-full object-cover rounded-xl"
-                  alt="High tech solar storage facility at dusk"
+                  alt="Rooftop solar panels on a northern Canadian community building"
                   src={ABOUT_FACILITY_IMAGE}
                   referrerPolicy="no-referrer"
                 />
@@ -119,7 +119,7 @@ export default function About() {
                   variants={imageHover}
                   whileHover="hover"
                   className="h-56 sm:h-64 w-full object-cover rounded-xl"
-                  alt="Close up pattern details of highly efficient solar panels"
+                  alt="Solar panels with battery storage units for clean energy"
                   src={ABOUT_SOLAR_IMAGE}
                   referrerPolicy="no-referrer"
                 />
