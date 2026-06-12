@@ -1,0 +1,6 @@
+{
+  "name": "CA Hybrid",
+  "description": "Professional Engineering for Green Energy Technologies. Leading the transition to a sustainable future through smart grid innovation, advanced storage solutions, and comprehensive clean energy consulting.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
