@@ -4,7 +4,7 @@
  */
 
 import { motion } from 'motion/react';
-import { ABOUT_EV_CHARGING_IMAGE, ABOUT_FACILITY_IMAGE, ABOUT_SOLAR_IMAGE, ABOUT_WIND_IMAGE } from '../data';
+import { ABOUT_HYDROELECTRIC_IMAGE, ABOUT_FACILITY_IMAGE, ABOUT_SOLAR_IMAGE, ABOUT_WIND_IMAGE } from '../data';
 
 export default function About() {
   const containerVariants = {
@@ -131,7 +131,7 @@ export default function About() {
                 />
               </motion.div>
 
-              {/* EV Charging Technology Photograph */}
+              {/* Hydroelectric Dam Photograph */}
               <motion.div
                 variants={{
                   hidden: { opacity: 0, y: 30 },
@@ -143,8 +143,8 @@ export default function About() {
                   variants={imageHover}
                   whileHover="hover"
                   className="h-40 sm:h-48 w-full object-cover rounded-xl"
-                  alt="Electric vehicle charging station for clean transportation"
-                  src={ABOUT_EV_CHARGING_IMAGE}
+                  alt="Hydroelectric dam generating renewable clean energy"
+                  src={ABOUT_HYDROELECTRIC_IMAGE}
                   referrerPolicy="no-referrer"
                 />
               </motion.div>

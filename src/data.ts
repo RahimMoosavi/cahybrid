@@ -15,7 +15,7 @@ export const ABOUT_FACILITY_IMAGE = "https://images.unsplash.com/photo-161261806
 
 export const ABOUT_SOLAR_IMAGE = "https://images.unsplash.com/photo-1589276534126-adef63a95e05?w=800&h=600&fit=crop&auto=format&q=80";
 
-export const ABOUT_EV_CHARGING_IMAGE = "https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800&h=600&fit=crop&auto=format&q=80";
+export const ABOUT_HYDROELECTRIC_IMAGE = "https://images.unsplash.com/photo-FUeb2npsblQ?w=800&h=600&fit=crop&auto=format&q=80";
 
 export const COMPETENCIES: CompetencyCard[] = [
   {
