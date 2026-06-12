@@ -55,6 +55,6 @@ export const COMPETENCIES: CompetencyCard[] = [
 
 export const CONTACT_INFO = {
   email: 'nabavi@cahybrid.com',
-  linkedinUrl: 'https://www.linkedin.com/in/ali-nabavi-65576a3a/',
+  linkedinUrl: 'https://www.linkedin.com/in/ali-nabavi-phd-peng-65576a3a/',
   linkedinName: 'Ali Nabavi'
 };

@@ -18,8 +18,12 @@ export default function Contact() {
   // Status states
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
   const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({});
   const [showInquiries, setShowInquiries] = useState(false);
+
+  // Web3Forms access key — register your email at https://web3forms.com to get a key
+  const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY ?? '';
 
   // Load existing inquiries from localStorage on mount
   useEffect(() => {
@@ -66,14 +70,34 @@ export default function Contact() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setIsSubmitting(true);
+    setSubmitError(false);
 
-    // Simulate clean API transmission
-    setTimeout(() => {
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `New inquiry from ${name.trim()} — CA Hybrid`,
+          from_name: 'CA Hybrid Contact Form',
+          name: name.trim(),
+          email: email.trim(),
+          message: message.trim(),
+          replyto: email.trim(),
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.message ?? 'Submission failed');
+      }
+
       const newSubmission: ContactSubmission = {
         id: crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 9),
         name: name.trim(),
@@ -81,23 +105,19 @@ export default function Contact() {
         message: message.trim(),
         createdAt: new Date().toLocaleString(),
       };
+      saveToLocal([newSubmission, ...submissions]);
 
-      const revised = [newSubmission, ...submissions];
-      saveToLocal(revised);
-
-      setIsSubmitting(false);
-      setSubmitSuccess(true);
-
-      // Post-success cleanup
       setName('');
       setEmail('');
       setMessage('');
+      setSubmitSuccess(true);
 
-      // Auto clear success layout state after 5 seconds
-      setTimeout(() => {
-        setSubmitSuccess(false);
-      }, 5000);
-    }, 800);
+      setTimeout(() => setSubmitSuccess(false), 5000);
+    } catch {
+      setSubmitError(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const deleteSubmission = (id: string, e: React.MouseEvent) => {
@@ -318,6 +338,21 @@ export default function Contact() {
                   </>
                 )}
               </button>
+
+              {/* Submission error feedback */}
+              <AnimatePresence>
+                {submitError && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="flex items-start gap-2 bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-sm text-red-700"
+                  >
+                    <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
+                    <span>Something went wrong — please try again or email us directly at <a href={`mailto:${CONTACT_INFO.email}`} className="underline font-semibold">{CONTACT_INFO.email}</a>.</span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </form>
 
             {/* Developer Local Inquiries Live Logger Portal */}
