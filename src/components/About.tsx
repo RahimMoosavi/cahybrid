@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Compass, Cpu } from 'lucide-react';
 import { motion } from 'motion/react';
-import { ABOUT_FACILITY_IMAGE, ABOUT_SOLAR_IMAGE } from '../data';
+import { ABOUT_EV_CHARGING_IMAGE, ABOUT_FACILITY_IMAGE, ABOUT_SOLAR_IMAGE, ABOUT_WIND_IMAGE } from '../data';
 
 export default function About() {
   const containerVariants = {
@@ -75,15 +74,22 @@ export default function About() {
           >
             {/* Left Staggered Column */}
             <div className="space-y-4">
-              {/* Drafting Compass Graphic Panel */}
+              {/* Wind Energy Photograph */}
               <motion.div
                 variants={{
                   hidden: { opacity: 0, y: 30 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
                 }}
-                className="h-40 sm:h-48 rounded-xl bg-forest-green/5 border border-outline-variant/60 flex items-center justify-center group hover:bg-forest-green/[0.08] transition-colors"
+                className="rounded-xl overflow-hidden border border-outline-variant/60 shadow-md group cursor-pointer"
               >
-                <Compass className="w-16 h-16 text-forest-green/20 group-hover:scale-110 group-hover:text-forest-green/30 transition-all duration-300" strokeWidth={1.2} />
+                <motion.img
+                  variants={imageHover}
+                  whileHover="hover"
+                  className="h-40 sm:h-48 w-full object-cover rounded-xl"
+                  alt="Wind turbines generating renewable clean energy"
+                  src={ABOUT_WIND_IMAGE}
+                  referrerPolicy="no-referrer"
+                />
               </motion.div>
 
               {/* High Tech Glass Facility Photograph */}
@@ -125,15 +131,22 @@ export default function About() {
                 />
               </motion.div>
 
-              {/* Advanced Robotic Arm Graphic Panel */}
+              {/* EV Charging Technology Photograph */}
               <motion.div
                 variants={{
                   hidden: { opacity: 0, y: 30 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
                 }}
-                className="h-40 sm:h-48 rounded-xl bg-terracotta/5 border border-outline-variant/60 flex items-center justify-center group hover:bg-terracotta/[0.08] transition-colors"
+                className="rounded-xl overflow-hidden border border-outline-variant/60 shadow-md group cursor-pointer"
               >
-                <Cpu className="w-16 h-16 text-terracotta/20 group-hover:rotate-12 group-hover:text-terracotta/30 transition-all duration-300" strokeWidth={1.2} />
+                <motion.img
+                  variants={imageHover}
+                  whileHover="hover"
+                  className="h-40 sm:h-48 w-full object-cover rounded-xl"
+                  alt="Electric vehicle charging station for clean transportation"
+                  src={ABOUT_EV_CHARGING_IMAGE}
+                  referrerPolicy="no-referrer"
+                />
               </motion.div>
             </div>
           </motion.div>

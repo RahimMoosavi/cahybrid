@@ -3,49 +3,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
-import { Mail, Share2, Send, CheckCircle2, AlertCircle, Database, Trash2, Calendar } from 'lucide-react';
+import React, { useState } from 'react';
+import { Mail, Share2, Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CONTACT_INFO } from '../data';
-import { ContactSubmission } from '../types';
 
 export default function Contact() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const [submissions, setSubmissions] = useState<ContactSubmission[]>([]);
-  
-  // Status states
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(false);
   const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({});
-  const [showInquiries, setShowInquiries] = useState(false);
 
   // Web3Forms access key — register your email at https://web3forms.com to get a key
   const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY ?? '';
-
-  // Load existing inquiries from localStorage on mount
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem('ca_hybrid_inquiries');
-      if (stored) {
-        setSubmissions(JSON.parse(stored));
-      }
-    } catch (e) {
-      console.error('Error reading localStorage', e);
-    }
-  }, []);
-
-  // Sync to localStorage
-  const saveToLocal = (newSubmissions: ContactSubmission[]) => {
-    try {
-      localStorage.setItem('ca_hybrid_inquiries', JSON.stringify(newSubmissions));
-      setSubmissions(newSubmissions);
-    } catch (e) {
-      console.error('Error writing to localStorage', e);
-    }
-  };
 
   const validate = () => {
     const newErrors: { name?: string; email?: string; message?: string } = {};
@@ -98,15 +71,6 @@ export default function Contact() {
         throw new Error(data.message ?? 'Submission failed');
       }
 
-      const newSubmission: ContactSubmission = {
-        id: crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 9),
-        name: name.trim(),
-        email: email.trim(),
-        message: message.trim(),
-        createdAt: new Date().toLocaleString(),
-      };
-      saveToLocal([newSubmission, ...submissions]);
-
       setName('');
       setEmail('');
       setMessage('');
@@ -117,18 +81,6 @@ export default function Contact() {
       setSubmitError(true);
     } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  const deleteSubmission = (id: string, e: React.MouseEvent) => {
-    e.stopPropagation();
-    const filtered = submissions.filter((sub) => sub.id !== id);
-    saveToLocal(filtered);
-  };
-
-  const clearAllInquiries = () => {
-    if (window.confirm('Are you sure you want to clear all local inquiries?')) {
-      saveToLocal([]);
     }
   };
 
@@ -354,91 +306,6 @@ export default function Contact() {
                 )}
               </AnimatePresence>
             </form>
-
-            {/* Developer Local Inquiries Live Logger Portal */}
-            <div className="mt-8 pt-6 border-t border-outline-variant/55 flex flex-col gap-3">
-              <button
-                type="button"
-                onClick={() => setShowInquiries(!showInquiries)}
-                className="flex items-center justify-between text-xs text-forest-green hover:text-terracotta transition-colors font-sans font-bold uppercase tracking-wider py-1 cursor-pointer select-none"
-              >
-                <span className="flex items-center gap-2">
-                  <Database className="w-4 h-4 text-forest-green" />
-                  Developer Portal: Inquiries Monitor ({submissions.length})
-                </span>
-                <span className="text-[10px] bg-sage-wash text-forest-green px-2 py-0.5 rounded">
-                  {showInquiries ? 'Hide' : 'Expand Live Log'}
-                </span>
-              </button>
-
-              <AnimatePresence>
-                {showInquiries && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="bg-surface-container-low rounded-xl p-4 border border-outline-variant/60 max-h-72 overflow-y-auto space-y-3 mt-1.5 scrollbar-thin">
-                      {submissions.length === 0 ? (
-                        <p className="text-xs text-slate-text/75 text-center italic py-6">
-                          No local inquiries found. Submit the form above to see live updates in real-time.
-                        </p>
-                      ) : (
-                        <>
-                          <div className="flex justify-between items-center pb-2 border-b border-outline-variant/50">
-                            <span className="text-[10px] text-slate-text font-bold uppercase">
-                              Active Local Storage Stack (LIFO)
-                            </span>
-                            <button
-                              type="button"
-                              onClick={clearAllInquiries}
-                              className="text-[10px] text-error hover:underline flex items-center gap-1 font-bold cursor-pointer"
-                            >
-                              <Trash2 className="w-3.5 h-3.5" />
-                              Wipe Data
-                            </button>
-                          </div>
-                          {submissions.map((sub) => (
-                            <div
-                              key={sub.id}
-                              className="bg-white p-3.5 rounded-lg border border-outline-variant/40 shadow-sm relative group/item"
-                            >
-                              <div className="flex justify-between items-start gap-4 mb-2">
-                                <div>
-                                  <h4 className="text-xs font-bold text-primary font-headline">
-                                    {sub.name}
-                                  </h4>
-                                  <p className="text-[11px] text-forest-green font-mono">
-                                    {sub.email}
-                                  </p>
-                                </div>
-                                <span className="text-[9px] text-slate-text bg-surface-container px-2 py-0.5 rounded font-mono flex items-center gap-1">
-                                  <Calendar className="w-2.5 h-2.5" />
-                                  {sub.createdAt.split(',')[0]}
-                                </span>
-                              </div>
-                              <p className="text-xs text-slate-text leading-relaxed bg-surface-container-low/50 p-2 rounded italic">
-                                "{sub.message}"
-                              </p>
-                              <button
-                                type="button"
-                                onClick={(e) => deleteSubmission(sub.id, e)}
-                                className="absolute top-2 right-2 text-slate-text hover:text-error opacity-0 group-hover/item:opacity-100 transition-opacity duration-200 cursor-pointer p-1"
-                                title="Delete inquiry"
-                              >
-                                <Trash2 className="w-3 h-3" />
-                              </button>
-                            </div>
-                          ))}
-                        </>
-                      )}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
           </motion.div>
         </div>
       </div>
