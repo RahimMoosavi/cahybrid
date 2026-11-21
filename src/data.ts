@@ -5,10 +5,11 @@
 
 import { CompetencyCard } from './types';
 import logoUrl from './logo.PNG';
+import heroImage from './hero.jpeg';
 
 export const LOGO_URL = logoUrl;
 
-export const HERO_BATTERY_IMAGE = "https://lh3.googleusercontent.com/aida/AP1WRLtAdrnSfNtk8D_LQ8VMLen4bGNKt0Lg742R_YffXcpb9Ot85Z0l8WMgdU50HViUb56N6_ceGmyVZ5vpytdGt0sQ2y6yg2leKTTMhv0lxoEHYLmwfTH6RqXAjmZHbyjaLMKcRyUatY1qjTKQLkVc1tQova206DQ3D8FDGQ6q5Yb0ob2Ybh4IaZYC7fkrLYX-5Fx0B5PMhr8gcjiK0Th-D3afUkOtd1BFbeRBqJepr3dyViSXqN8FK3qiAQ";
+export const HERO_BATTERY_IMAGE = heroImage;
 
 export const ABOUT_WIND_IMAGE = "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=800&h=600&fit=crop&auto=format&q=80";
 
