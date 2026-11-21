@@ -4,8 +4,9 @@
  */
 
 import { CompetencyCard } from './types';
+import logoUrl from './logo.PNG';
 
-export const LOGO_URL = "/CA_Logo.PNG";
+export const LOGO_URL = logoUrl;
 
 export const HERO_BATTERY_IMAGE = "https://lh3.googleusercontent.com/aida/AP1WRLtAdrnSfNtk8D_LQ8VMLen4bGNKt0Lg742R_YffXcpb9Ot85Z0l8WMgdU50HViUb56N6_ceGmyVZ5vpytdGt0sQ2y6yg2leKTTMhv0lxoEHYLmwfTH6RqXAjmZHbyjaLMKcRyUatY1qjTKQLkVc1tQova206DQ3D8FDGQ6q5Yb0ob2Ybh4IaZYC7fkrLYX-5Fx0B5PMhr8gcjiK0Th-D3afUkOtd1BFbeRBqJepr3dyViSXqN8FK3qiAQ";
 
