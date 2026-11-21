@@ -5,7 +5,7 @@
 
 import { CompetencyCard } from './types';
 
-export const LOGO_URL = "https://lh3.googleusercontent.com/aida/AP1WRLtjeup_JShC9CT74tnVatTYsbOxV-0TETcqB_JMOwC9BgPjlk7wS558gXgQ48EsNCtm0vkCStIDvAVFPc5pXfGqTTZHCfJ3Jyd-S3itNsY1tqFYvkc-ViRNUoInGvzU5hWGecm_5NBGM94XiTeHSEE91W6AuKAt_HwBgcwq8VlZ343SaXDUfpxZK195fJSAj8zxLEz44CYDzHeP_hYw9sby4764fGI3iVMG-8bN4QoariHthJA3EzV1rw";
+export const LOGO_URL = "/CA_Logo.PNG";
 
 export const HERO_BATTERY_IMAGE = "https://lh3.googleusercontent.com/aida/AP1WRLtAdrnSfNtk8D_LQ8VMLen4bGNKt0Lg742R_YffXcpb9Ot85Z0l8WMgdU50HViUb56N6_ceGmyVZ5vpytdGt0sQ2y6yg2leKTTMhv0lxoEHYLmwfTH6RqXAjmZHbyjaLMKcRyUatY1qjTKQLkVc1tQova206DQ3D8FDGQ6q5Yb0ob2Ybh4IaZYC7fkrLYX-5Fx0B5PMhr8gcjiK0Th-D3afUkOtd1BFbeRBqJepr3dyViSXqN8FK3qiAQ";
 
